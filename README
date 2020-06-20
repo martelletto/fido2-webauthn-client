@@ -19,9 +19,10 @@ $ export PKG_CONFIG_PATH="$(brew --prefix openssl)"/lib/pkgconfig
 $ (rm -rf build && mkdir build && cd build && cmake ..)
 $ make -C build
 
-fido2-webauthn-client prints messages exchanged with the WebAuthn server
-on stderr. Combine with FIDO_DEBUG=1 for a combined picture of messages
-exchanged with the WebAuthn server and the authenticator.
-
 fido2-webauthn-client talks to https://demo.yubico.com/ by default. If
 you would like to change this behaviour, edit param.h accordingly.
+
+fido2-webauthn-client prints the messages exchanged with the configured
+WebAuthn server. Combined with FIDO_DEBUG=1, it allows for a
+comprehensive and extensible view of the steps comprising a WebAuthn
+registration and a WebAuthn authentication.
