@@ -1,0 +1,4 @@
+libfido2-webauthn-client
+
+An implementation of a dummy WebAuthn client using libfido2, for
+illustration purposes only, and provided as-is.
