@@ -3,3 +3,25 @@ fido2-webauthn-client
 An implementation of a basic WebAuthn client using libfido2, for
 illustration purposes only, and provided as-is. libcurl, jansson,
 libcbor, and libfido2 are required for compilation.
+
+* Ubuntu Focal (20.04):
+
+$ sudo apt install cmake pkg-config
+$ sudo apt install libcurl4-openssl-dev libjansson-dev
+$ sudo apt install libcbor-dev libssl-dev libfido2-dev
+$ (rm -rf build && mkdir build && cd build && cmake ..)
+$ make -C build
+
+* macOS:
+
+$ brew install jansson libcbor openssl libfido2
+$ export PKG_CONFIG_PATH="$(brew --prefix openssl)"/lib/pkgconfig
+$ (rm -rf build && mkdir build && cd build && cmake ..)
+$ make -C build
+
+fido2-webauthn-client prints the messages exchanged with the WebAuthn
+server on stderr. Combine with FIDO_DEBUG=1 for a combined picture of
+messages exchanged with the WebAuthn server and the authenticator.
+
+fido2-webauthn-client talks to https://demo.yubico.com/ by default. If
+you would like to change this behaviour, edit param.h accordingly.
