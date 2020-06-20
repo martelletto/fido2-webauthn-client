@@ -1,4 +1,5 @@
-libfido2-webauthn-client
+fido2-webauthn-client
 
-An implementation of a dummy WebAuthn client using libfido2, for
-illustration purposes only, and provided as-is.
+An implementation of a basic WebAuthn client using libfido2, for
+illustration purposes only, and provided as-is. libcurl, jansson,
+libcbor, and libfido2 are required for compilation.
