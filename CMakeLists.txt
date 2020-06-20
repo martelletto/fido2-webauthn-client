@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-project(webauthn_client C)
+project(fido2-webauthn-client C)
 cmake_minimum_required(VERSION 3.0)
 include(FindPkgConfig)
 
@@ -53,7 +53,7 @@ link_directories(${LIBCBOR_LIBRARY_DIRS})
 link_directories(${LIBCRYPTO_LIBRARY_DIRS})
 link_directories(${LIBFIDO2_LIBRARY_DIRS})
 
-add_executable(webauthn-client
+add_executable(fido2-webauthn-client
 	base64.c
 	cbor.c
 	clientdata.c
@@ -64,7 +64,7 @@ add_executable(webauthn-client
 	webauthn-cred.c
 )
 
-target_link_libraries(webauthn-client
+target_link_libraries(fido2-webauthn-client
 	${JANSSON_LIBRARIES}
 	${LIBCBOR_LIBRARIES}
 	${LIBCRYPTO_LIBRARIES}
