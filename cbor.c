@@ -37,11 +37,13 @@ cbor_pack_item(const char *key, cbor_item_t **item)
 	    (p->key = cbor_build_string(key)) == NULL ||
 	    *item == NULL) {
 		warnx("%s: %s", __func__, key);
+		if (*item)
+			cbor_decref(item);
 		free_pair(&p);
-		return NULL;
+	} else {
+		p->value = *item;
 	}
 
-	p->value = *item;
 	*item = NULL;
 
 	return p;
