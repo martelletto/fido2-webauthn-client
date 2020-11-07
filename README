@@ -25,4 +25,527 @@ you would like to change this behaviour, edit param.h accordingly.
 fido2-webauthn-client prints the messages exchanged with the configured
 WebAuthn server. Combined with FIDO_DEBUG=1, it allows for a
 comprehensive and extensible view of the steps comprising a WebAuthn
-registration and a WebAuthn authentication.
+registration and a WebAuthn authentication:
+
+$ fido2-webauthn-client "IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS04@14400000/YubiKey FIDO@14400000/IOUSBHostInterface@0/AppleUserUSBHostHIDDevice"
+fido_tx: d=0x60c000001180, cmd=0x06, buf=0x60c000001180, count=8
+0000: 6f 38 2d 45 1c 3d e3 aa
+fido_rx: d=0x60c000001180, cmd=0x06, buf=0x60c000001188, count=17, ms=-1
+rx_preamble: initiation frame at 0x10ccab120
+0000: ff ff ff ff 86 00 11 6f 38 2d 45 1c 3d e3 aa 01
+0016: 42 00 03 02 05 02 04 05 00 00 00 00 00 00 00 00
+0032: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0048: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+rx: payload_len=17
+fido_rx: buf=0x60c000001188, len=17
+0000: 6f 38 2d 45 1c 3d e3 aa 01 42 00 03 02 05 02 04
+0016: 05
+fido_dev_get_cbor_info_tx: dev=0x60c000001180
+fido_tx: d=0x60c000001180, cmd=0x10, buf=0x10cbab160, count=1
+0000: 04
+fido_dev_get_cbor_info_rx: dev=0x60c000001180, ci=0x60c00000a240, ms=-1
+fido_rx: d=0x60c000001180, cmd=0x10, buf=0x10d1ab020, count=2048, ms=-1
+rx_preamble: initiation frame at 0x10ccab1a0
+0000: 01 42 00 03 90 00 bf 00 aa 01 83 66 55 32 46 5f
+0016: 56 32 68 46 49 44 4f 5f 32 5f 30 6c 46 49 44 4f
+0032: 5f 32 5f 31 5f 50 52 45 02 82 6b 63 72 65 64 50
+0048: 72 6f 74 65 63 74 6b 68 6d 61 63 2d 73 65 63 72
+rx: payload_len=191
+rx: continuation frame at 0x10ccab1a0
+0000: 01 42 00 03 00 65 74 03 50 b9 2c 3f 9a c0 14 40
+0016: 56 88 7f 14 0a 25 01 16 3b 04 a5 62 72 6b f5 62
+0032: 75 70 f5 64 70 6c 61 74 f4 69 63 6c 69 65 6e 74
+0048: 50 69 6e f4 75 63 72 65 64 65 6e 74 69 61 6c 4d
+rx: continuation frame at 0x10ccab1a0
+0000: 01 42 00 03 01 67 6d 74 50 72 65 76 69 65 77 f5
+0016: 05 19 04 b0 06 81 01 07 08 08 18 80 09 81 63 75
+0032: 73 62 0a 82 a2 63 61 6c 67 26 64 74 79 70 65 6a
+0048: 70 75 62 6c 69 63 2d 6b 65 79 a2 63 61 6c 67 27
+rx: continuation frame at 0x10ccab1a0
+0000: 01 42 00 03 02 64 74 79 70 65 6a 70 75 62 6c 69
+0016: 63 2d 6b 65 79 00 00 00 00 00 00 00 00 00 00 00
+0032: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0048: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+fido_rx: buf=0x10d1ab020, len=191
+0000: 00 aa 01 83 66 55 32 46 5f 56 32 68 46 49 44 4f
+0016: 5f 32 5f 30 6c 46 49 44 4f 5f 32 5f 31 5f 50 52
+0032: 45 02 82 6b 63 72 65 64 50 72 6f 74 65 63 74 6b
+0048: 68 6d 61 63 2d 73 65 63 72 65 74 03 50 b9 2c 3f
+0064: 9a c0 14 40 56 88 7f 14 0a 25 01 16 3b 04 a5 62
+0080: 72 6b f5 62 75 70 f5 64 70 6c 61 74 f4 69 63 6c
+0096: 69 65 6e 74 50 69 6e f4 75 63 72 65 64 65 6e 74
+0112: 69 61 6c 4d 67 6d 74 50 72 65 76 69 65 77 f5 05
+0128: 19 04 b0 06 81 01 07 08 08 18 80 09 81 63 75 73
+0144: 62 0a 82 a2 63 61 6c 67 26 64 74 79 70 65 6a 70
+0160: 75 62 6c 69 63 2d 6b 65 79 a2 63 61 6c 67 27 64
+0176: 74 79 70 65 6a 70 75 62 6c 69 63 2d 6b 65 79
+parse_reply_element: cbor type
+parse_reply_element: cbor type
+fido_dev_open_rx: FIDO_MAXMSG=2048, maxmsgsiz=1200
+fido2-webauthn-client: http_request: https://demo.yubico.com/api/v1/simple/webauthn/register-begin
+{
+  "userVerification": "discouraged"
+}
+fido2-webauthn-client: http_response_json: https://demo.yubico.com/api/v1/simple/webauthn/register-begin
+{
+  "data": {
+    "displayName": "Yubico demo user",
+    "icon": null,
+    "publicKey": {
+      "attestation": "direct",
+      "authenticatorSelection": {
+        "requireResidentKey": false,
+        "userVerification": "discouraged"
+      },
+      "challenge": "IVh8qd6NzOFMmnnjWgGBZhjssJiUVlhu+mHsdRHcoWM=",
+      "excludeCredentials": [],
+      "pubKeyCredParams": [
+        {
+          "alg": -7,
+          "type": "public-key"
+        },
+        {
+          "alg": -257,
+          "type": "public-key"
+        }
+      ],
+      "rp": {
+        "id": "demo.yubico.com",
+        "name": "YubicoDemo"
+      },
+      "timeout": 90000,
+      "user": {
+        "displayName": "Yubico demo user",
+        "id": "vik8xZRA/ZPMhRjNn/rPi5BL3Af9EDjQQxnbg02l38k=",
+        "name": "Yubico demo user"
+      }
+    },
+    "requestId": "559a347a-76c1-4ea3-9625-2545cc6bcb20",
+    "username": "Yubico demo user"
+  },
+  "status": "success"
+}
+fido_tx: d=0x60c000001180, cmd=0x10, buf=0x610000002e40, count=188
+0000: 01 a4 01 58 20 d0 3b b9 7b 3a 35 08 89 52 9a 2b
+0016: ac ed d7 25 44 96 c3 c6 16 57 f6 18 db f4 c5 5c
+0032: 86 2d 28 65 0b 02 a2 62 69 64 6f 64 65 6d 6f 2e
+0048: 79 75 62 69 63 6f 2e 63 6f 6d 64 6e 61 6d 65 6a
+0064: 59 75 62 69 63 6f 44 65 6d 6f 03 a3 62 69 64 58
+0080: 20 be 29 3c c5 94 40 fd 93 cc 85 18 cd 9f fa cf
+0096: 8b 90 4b dc 07 fd 10 38 d0 43 19 db 83 4d a5 df
+0112: c9 64 6e 61 6d 65 70 59 75 62 69 63 6f 20 64 65
+0128: 6d 6f 20 75 73 65 72 6b 64 69 73 70 6c 61 79 4e
+0144: 61 6d 65 70 59 75 62 69 63 6f 20 64 65 6d 6f 20
+0160: 75 73 65 72 04 81 a2 63 61 6c 67 26 64 74 79 70
+0176: 65 6a 70 75 62 6c 69 63 2d 6b 65 79
+fido_rx: d=0x60c000001180, cmd=0x10, buf=0x10d1ac020, count=2048, ms=-1
+rx_preamble: initiation frame at 0x10ccb0720
+0000: 01 42 00 03 90 03 f0 00 a3 01 66 70 61 63 6b 65
+0016: 64 02 58 c4 c4 6c ef 82 ad 1b 54 64 77 59 1d 00
+0032: 8b 08 75 9e c3 e6 d2 ec b4 f3 94 74 bf ea 69 69
+0048: 92 5d 03 b7 41 00 00 00 02 b9 2c 3f 9a c0 14 40
+rx: payload_len=1008
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 00 56 88 7f 14 0a 25 01 16 3b 00 40
+0016: 46 71 0d 97 93 f3 05 7e 3e 88 d7 9f 58 af 21 8e
+0032: 17 fb c9 b8 e0 1b e1 e2 2a 19 f6 ae 8d 01 7d 8e
+0048: ca d7 ee f0 44 e5 67 73 35 a0 98 df 58 2d 44 b2
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 01 40 42 b3 5e 3f 40 24 c3 f2 c0 41
+0016: d2 6d 5b 1a 52 a5 01 02 03 26 20 01 21 58 20 a1
+0032: 2f b1 96 4a a0 bf 64 85 79 a8 88 14 99 d6 16 ba
+0048: ad e9 c0 bf c2 c0 0e db 0d 30 bf 3d 1a 5e d0 22
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 02 58 20 05 d6 fa d2 86 4d b9 b6 78
+0016: 2d 0e d0 18 af 9e 22 43 26 0b 46 a1 1f 2d 3b f4
+0032: fc d7 e4 dc 22 1f 6e 03 a3 63 61 6c 67 26 63 73
+0048: 69 67 58 48 30 46 02 21 00 b5 41 ad 6d 16 9e a7
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 03 64 2a 52 e9 17 0b c5 1b 33 d8 e3
+0016: 42 32 95 3a db 9c 47 b9 94 aa 66 62 e1 25 02 21
+0032: 00 ba b5 a7 74 f0 ce 82 47 5e ff ad 0a a6 0b c1
+0048: bf 9d 05 32 4e fd 61 18 31 9b 89 e9 ce eb e2 09
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 04 ca 63 78 35 63 81 59 02 c2 30 82
+0016: 02 be 30 82 01 a6 a0 03 02 01 02 02 04 40 02 79
+0032: a8 30 0d 06 09 2a 86 48 86 f7 0d 01 01 0b 05 00
+0048: 30 2e 31 2c 30 2a 06 03 55 04 03 13 23 59 75 62
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 05 69 63 6f 20 55 32 46 20 52 6f 6f
+0016: 74 20 43 41 20 53 65 72 69 61 6c 20 34 35 37 32
+0032: 30 30 36 33 31 30 20 17 0d 31 34 30 38 30 31 30
+0048: 30 30 30 30 30 5a 18 0f 32 30 35 30 30 39 30 34
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 06 30 30 30 30 30 30 5a 30 6f 31 0b
+0016: 30 09 06 03 55 04 06 13 02 53 45 31 12 30 10 06
+0032: 03 55 04 0a 0c 09 59 75 62 69 63 6f 20 41 42 31
+0048: 22 30 20 06 03 55 04 0b 0c 19 41 75 74 68 65 6e
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 07 74 69 63 61 74 6f 72 20 41 74 74
+0016: 65 73 74 61 74 69 6f 6e 31 28 30 26 06 03 55 04
+0032: 03 0c 1f 59 75 62 69 63 6f 20 55 32 46 20 45 45
+0048: 20 53 65 72 69 61 6c 20 31 30 37 33 39 30 34 30
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 08 34 30 30 59 30 13 06 07 2a 86 48
+0016: ce 3d 02 01 06 08 2a 86 48 ce 3d 03 01 07 03 42
+0032: 00 04 5c b7 0e a6 6c 13 f2 bf e0 ff 93 84 d0 b3
+0048: 43 20 48 cd a0 b6 fb 87 50 1b 72 9b e6 cd 4d 68
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 09 06 ad e0 52 66 76 ad fd d4 6f 2e
+0016: 51 64 4f 12 77 65 4f 2a f0 d0 8f 96 cc 55 3b b5
+0032: f1 45 15 bf be 9d d0 a3 6c 30 6a 30 22 06 09 2b
+0048: 06 01 04 01 82 c4 0a 02 04 15 31 2e 33 2e 36 2e
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 0a 31 2e 34 2e 31 2e 34 31 34 38 32
+0016: 2e 31 2e 31 30 13 06 0b 2b 06 01 04 01 82 e5 1c
+0032: 02 01 01 04 04 03 02 05 20 30 21 06 0b 2b 06 01
+0048: 04 01 82 e5 1c 01 01 04 04 12 04 10 b9 2c 3f 9a
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 0b c0 14 40 56 88 7f 14 0a 25 01 16
+0016: 3b 30 0c 06 03 55 1d 13 01 01 ff 04 02 30 00 30
+0032: 0d 06 09 2a 86 48 86 f7 0d 01 01 0b 05 00 03 82
+0048: 01 01 00 b2 87 e4 46 06 a8 de bc c0 13 32 f5 c6
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 0c ca 90 ce 31 30 26 0b 8f 77 46 20
+0016: 5f 1a d4 8e b7 83 a3 1b cb 91 06 85 94 ca d7 b5
+0032: a4 db a6 38 13 7e 89 d3 3e 2a 7f b6 b1 70 35 72
+0048: fb 08 28 2c 9c 6c 14 1a d8 ef 41 d7 c4 ae e1 8c
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 0d 54 f5 8b fd f1 c7 ff df 7a 92 10
+0016: ca 3a bf 0a 56 f9 27 e3 55 bc a4 72 b3 7b 33 a6
+0032: ed 5a fb b1 c2 c6 10 30 8e 5a b3 ac 26 bb 3d 43
+0048: ce ff 13 3e e0 17 b5 80 46 9d 35 e6 97 50 f2 48
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 0e 42 e6 60 17 79 0d 73 6e 04 eb bf
+0016: ef e4 b6 24 4d 1c 71 1d b3 0e f9 30 94 ea 95 e5
+0032: 7d 9f 4d 63 1d 54 9e f3 ef 09 ee 5b 19 c4 17 c2
+0048: 4e cd 3f b9 8b 50 fc 2a b5 7d da 67 dc 9d 26 7a
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 0f 41 ad 76 66 b5 09 5a f8 22 54 04
+0016: d2 99 2c 7b da a7 3c 4e d6 0a c6 76 4e 0c 63 95
+0032: d8 33 85 04 ff 95 cd 21 d4 aa 00 33 49 82 ae b8
+0048: 73 26 c6 be 13 32 f1 3b 12 ae a4 df e8 e9 d6 f8
+rx: continuation frame at 0x10ccb0720
+0000: 01 42 00 03 10 dd b8 38 03 95 f9 88 00 00 00 00
+0016: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0032: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0048: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+fido_rx: buf=0x10d1ac020, len=1008
+0000: 00 a3 01 66 70 61 63 6b 65 64 02 58 c4 c4 6c ef
+0016: 82 ad 1b 54 64 77 59 1d 00 8b 08 75 9e c3 e6 d2
+0032: ec b4 f3 94 74 bf ea 69 69 92 5d 03 b7 41 00 00
+0048: 00 02 b9 2c 3f 9a c0 14 40 56 88 7f 14 0a 25 01
+0064: 16 3b 00 40 46 71 0d 97 93 f3 05 7e 3e 88 d7 9f
+0080: 58 af 21 8e 17 fb c9 b8 e0 1b e1 e2 2a 19 f6 ae
+0096: 8d 01 7d 8e ca d7 ee f0 44 e5 67 73 35 a0 98 df
+0112: 58 2d 44 b2 40 42 b3 5e 3f 40 24 c3 f2 c0 41 d2
+0128: 6d 5b 1a 52 a5 01 02 03 26 20 01 21 58 20 a1 2f
+0144: b1 96 4a a0 bf 64 85 79 a8 88 14 99 d6 16 ba ad
+0160: e9 c0 bf c2 c0 0e db 0d 30 bf 3d 1a 5e d0 22 58
+0176: 20 05 d6 fa d2 86 4d b9 b6 78 2d 0e d0 18 af 9e
+0192: 22 43 26 0b 46 a1 1f 2d 3b f4 fc d7 e4 dc 22 1f
+0208: 6e 03 a3 63 61 6c 67 26 63 73 69 67 58 48 30 46
+0224: 02 21 00 b5 41 ad 6d 16 9e a7 64 2a 52 e9 17 0b
+0240: c5 1b 33 d8 e3 42 32 95 3a db 9c 47 b9 94 aa 66
+0256: 62 e1 25 02 21 00 ba b5 a7 74 f0 ce 82 47 5e ff
+0272: ad 0a a6 0b c1 bf 9d 05 32 4e fd 61 18 31 9b 89
+0288: e9 ce eb e2 09 ca 63 78 35 63 81 59 02 c2 30 82
+0304: 02 be 30 82 01 a6 a0 03 02 01 02 02 04 40 02 79
+0320: a8 30 0d 06 09 2a 86 48 86 f7 0d 01 01 0b 05 00
+0336: 30 2e 31 2c 30 2a 06 03 55 04 03 13 23 59 75 62
+0352: 69 63 6f 20 55 32 46 20 52 6f 6f 74 20 43 41 20
+0368: 53 65 72 69 61 6c 20 34 35 37 32 30 30 36 33 31
+0384: 30 20 17 0d 31 34 30 38 30 31 30 30 30 30 30 30
+0400: 5a 18 0f 32 30 35 30 30 39 30 34 30 30 30 30 30
+0416: 30 5a 30 6f 31 0b 30 09 06 03 55 04 06 13 02 53
+0432: 45 31 12 30 10 06 03 55 04 0a 0c 09 59 75 62 69
+0448: 63 6f 20 41 42 31 22 30 20 06 03 55 04 0b 0c 19
+0464: 41 75 74 68 65 6e 74 69 63 61 74 6f 72 20 41 74
+0480: 74 65 73 74 61 74 69 6f 6e 31 28 30 26 06 03 55
+0496: 04 03 0c 1f 59 75 62 69 63 6f 20 55 32 46 20 45
+0512: 45 20 53 65 72 69 61 6c 20 31 30 37 33 39 30 34
+0528: 30 34 30 30 59 30 13 06 07 2a 86 48 ce 3d 02 01
+0544: 06 08 2a 86 48 ce 3d 03 01 07 03 42 00 04 5c b7
+0560: 0e a6 6c 13 f2 bf e0 ff 93 84 d0 b3 43 20 48 cd
+0576: a0 b6 fb 87 50 1b 72 9b e6 cd 4d 68 06 ad e0 52
+0592: 66 76 ad fd d4 6f 2e 51 64 4f 12 77 65 4f 2a f0
+0608: d0 8f 96 cc 55 3b b5 f1 45 15 bf be 9d d0 a3 6c
+0624: 30 6a 30 22 06 09 2b 06 01 04 01 82 c4 0a 02 04
+0640: 15 31 2e 33 2e 36 2e 31 2e 34 2e 31 2e 34 31 34
+0656: 38 32 2e 31 2e 31 30 13 06 0b 2b 06 01 04 01 82
+0672: e5 1c 02 01 01 04 04 03 02 05 20 30 21 06 0b 2b
+0688: 06 01 04 01 82 e5 1c 01 01 04 04 12 04 10 b9 2c
+0704: 3f 9a c0 14 40 56 88 7f 14 0a 25 01 16 3b 30 0c
+0720: 06 03 55 1d 13 01 01 ff 04 02 30 00 30 0d 06 09
+0736: 2a 86 48 86 f7 0d 01 01 0b 05 00 03 82 01 01 00
+0752: b2 87 e4 46 06 a8 de bc c0 13 32 f5 c6 ca 90 ce
+0768: 31 30 26 0b 8f 77 46 20 5f 1a d4 8e b7 83 a3 1b
+0784: cb 91 06 85 94 ca d7 b5 a4 db a6 38 13 7e 89 d3
+0800: 3e 2a 7f b6 b1 70 35 72 fb 08 28 2c 9c 6c 14 1a
+0816: d8 ef 41 d7 c4 ae e1 8c 54 f5 8b fd f1 c7 ff df
+0832: 7a 92 10 ca 3a bf 0a 56 f9 27 e3 55 bc a4 72 b3
+0848: 7b 33 a6 ed 5a fb b1 c2 c6 10 30 8e 5a b3 ac 26
+0864: bb 3d 43 ce ff 13 3e e0 17 b5 80 46 9d 35 e6 97
+0880: 50 f2 48 42 e6 60 17 79 0d 73 6e 04 eb bf ef e4
+0896: b6 24 4d 1c 71 1d b3 0e f9 30 94 ea 95 e5 7d 9f
+0912: 4d 63 1d 54 9e f3 ef 09 ee 5b 19 c4 17 c2 4e cd
+0928: 3f b9 8b 50 fc 2a b5 7d da 67 dc 9d 26 7a 41 ad
+0944: 76 66 b5 09 5a f8 22 54 04 d2 99 2c 7b da a7 3c
+0960: 4e d6 0a c6 76 4e 0c 63 95 d8 33 85 04 ff 95 cd
+0976: 21 d4 aa 00 33 49 82 ae b8 73 26 c6 be 13 32 f1
+0992: 3b 12 ae a4 df e8 e9 d6 f8 dd b8 38 03 95 f9 88
+cbor_decode_cred_authdata: buf=0x61100001f940, len=196
+0000: c4 6c ef 82 ad 1b 54 64 77 59 1d 00 8b 08 75 9e
+0016: c3 e6 d2 ec b4 f3 94 74 bf ea 69 69 92 5d 03 b7
+0032: 41 00 00 00 02 b9 2c 3f 9a c0 14 40 56 88 7f 14
+0048: 0a 25 01 16 3b 00 40 46 71 0d 97 93 f3 05 7e 3e
+0064: 88 d7 9f 58 af 21 8e 17 fb c9 b8 e0 1b e1 e2 2a
+0080: 19 f6 ae 8d 01 7d 8e ca d7 ee f0 44 e5 67 73 35
+0096: a0 98 df 58 2d 44 b2 40 42 b3 5e 3f 40 24 c3 f2
+0112: c0 41 d2 6d 5b 1a 52 a5 01 02 03 26 20 01 21 58
+0128: 20 a1 2f b1 96 4a a0 bf 64 85 79 a8 88 14 99 d6
+0144: 16 ba ad e9 c0 bf c2 c0 0e db 0d 30 bf 3d 1a 5e
+0160: d0 22 58 20 05 d6 fa d2 86 4d b9 b6 78 2d 0e d0
+0176: 18 af 9e 22 43 26 0b 46 a1 1f 2d 3b f4 fc d7 e4
+0192: dc 22 1f 6e
+decode_attcred: buf=0x61100001f965, len=159
+decode_attcred: attcred->id.len=64
+fido2-webauthn-client: http_request: https://demo.yubico.com/api/v1/simple/webauthn/register-finish
+{
+  "requestId": "559a347a-76c1-4ea3-9625-2545cc6bcb20",
+  "username": "Yubico demo user",
+  "displayName": "Yubico demo user",
+  "icon": null,
+  "attestation": {
+    "attestationObject": "o2NmbXRmcGFja2VkZ2F0dFN0bXSjY3NpZ1hIMEYCIQC1Qa1tFp6nZCpS6RcLxRsz2ONCMpU625xHuZSqZmLhJQIhALq1p3TwzoJHXv+tCqYLwb+dBTJO/WEYMZuJ6c7r4gnKY3g1Y4FZAsIwggK+MIIBpqADAgECAgRAAnmoMA0GCSqGSIb3DQEBCwUAMC4xLDAqBgNVBAMTI1l1YmljbyBVMkYgUm9vdCBDQSBTZXJpYWwgNDU3MjAwNjMxMCAXDTE0MDgwMTAwMDAwMFoYDzIwNTAwOTA0MDAwMDAwWjBvMQswCQYDVQQGEwJTRTESMBAGA1UECgwJWXViaWNvIEFCMSIwIAYDVQQLDBlBdXRoZW50aWNhdG9yIEF0dGVzdGF0aW9uMSgwJgYDVQQDDB9ZdWJpY28gVTJGIEVFIFNlcmlhbCAxMDczOTA0MDQwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEXLcOpmwT8r/g/5OE0LNDIEjNoLb7h1AbcpvmzU1oBq3gUmZ2rf3Uby5RZE8Sd2VPKvDQj5bMVTu18UUVv76d0KNsMGowIgYJKwYBBAGCxAoCBBUxLjMuNi4xLjQuMS40MTQ4Mi4xLjEwEwYLKwYBBAGC5RwCAQEEBAMCBSAwIQYLKwYBBAGC5RwBAQQEEgQQuSw/msAUQFaIfxQKJQEWOzAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4IBAQCyh+RGBqjevMATMvXGypDOMTAmC493RiBfGtSOt4OjG8uRBoWUyte1pNumOBN+idM+Kn+2sXA1cvsIKCycbBQa2O9B18Su4YxU9Yv98cf/33qSEMo6vwpW+SfjVbykcrN7M6btWvuxwsYQMI5as6wmuz1Dzv8TPuAXtYBGnTXml1DySELmYBd5DXNuBOu/7+S2JE0ccR2zDvkwlOqV5X2fTWMdVJ7z7wnuWxnEF8JOzT+5i1D8KrV92mfcnSZ6Qa12ZrUJWvgiVATSmSx72qc8TtYKxnZODGOV2DOFBP+VzSHUqgAzSYKuuHMmxr4TMvE7Eq6k3+jp1vjduDgDlfmIY2FsZyZoYXV0aERhdGFYxMRs74KtG1Rkd1kdAIsIdZ7D5tLstPOUdL/qaWmSXQO3QQAAAAK5LD+awBRAVoh/FAolARY7AEBGcQ2Xk/MFfj6I159YryGOF/vJuOAb4eIqGfaujQF9jsrX7vBE5WdzNaCY31gtRLJAQrNeP0Akw/LAQdJtWxpSpQECAyYgASFYIKEvsZZKoL9khXmoiBSZ1ha6renAv8LADtsNML89Gl7QIlggBdb60oZNubZ4LQ7QGK+eIkMmC0ahHy079PzX5NwiH24=",
+    "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiSVZoOHFkNk56T0ZNbW5ualdnR0JaaGpzc0ppVVZsaHUrbUhzZFJIY29XTT0iLCJvcmlnaW4iOiJodHRwczovL2RlbW8ueXViaWNvLmNvbSIsImNyb3NzT3JpZ2luIjpmYWxzZX0="
+  }
+}
+fido2-webauthn-client: http_response_json: https://demo.yubico.com/api/v1/simple/webauthn/register-finish
+{
+  "data": {
+    "attestationObject": {
+      "attStmt": {
+        "alg": -7,
+        "sig": "MEYCIQC1Qa1tFp6nZCpS6RcLxRsz2ONCMpU625xHuZSqZmLhJQIhALq1p3TwzoJHXv+tCqYLwb+dBTJO/WEYMZuJ6c7r4gnK",
+        "x5c": [
+          "MIICvjCCAaagAwIBAgIEQAJ5qDANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNZdWJpY28gVTJGIFJvb3QgQ0EgU2VyaWFsIDQ1NzIwMDYzMTAgFw0xNDA4MDEwMDAwMDBaGA8yMDUwMDkwNDAwMDAwMFowbzELMAkGA1UEBhMCU0UxEjAQBgNVBAoMCVl1YmljbyBBQjEiMCAGA1UECwwZQXV0aGVudGljYXRvciBBdHRlc3RhdGlvbjEoMCYGA1UEAwwfWXViaWNvIFUyRiBFRSBTZXJpYWwgMTA3MzkwNDA0MDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABFy3DqZsE/K/4P+ThNCzQyBIzaC2+4dQG3Kb5s1NaAat4FJmdq391G8uUWRPEndlTyrw0I+WzFU7tfFFFb++ndCjbDBqMCIGCSsGAQQBgsQKAgQVMS4zLjYuMS40LjEuNDE0ODIuMS4xMBMGCysGAQQBguUcAgEBBAQDAgUgMCEGCysGAQQBguUcAQEEBBIEELksP5rAFEBWiH8UCiUBFjswDAYDVR0TAQH/BAIwADANBgkqhkiG9w0BAQsFAAOCAQEAsofkRgao3rzAEzL1xsqQzjEwJguPd0YgXxrUjreDoxvLkQaFlMrXtaTbpjgTfonTPip/trFwNXL7CCgsnGwUGtjvQdfEruGMVPWL/fHH/996khDKOr8KVvkn41W8pHKzezOm7Vr7scLGEDCOWrOsJrs9Q87/Ez7gF7WARp015pdQ8khC5mAXeQ1zbgTrv+/ktiRNHHEdsw75MJTqleV9n01jHVSe8+8J7lsZxBfCTs0/uYtQ/Cq1fdpn3J0mekGtdma1CVr4IlQE0pkse9qnPE7WCsZ2TgxjldgzhQT/lc0h1KoAM0mCrrhzJsa+EzLxOxKupN/o6db43bg4A5X5iA=="
+        ]
+      },
+      "authData": {
+        "credentialData": {
+          "aaguid": "uSw/msAUQFaIfxQKJQEWOw==",
+          "credentialId": "RnENl5PzBX4+iNefWK8hjhf7ybjgG+HiKhn2ro0BfY7K1+7wROVnczWgmN9YLUSyQEKzXj9AJMPywEHSbVsaUg==",
+          "publicKey": {
+            "-1": 1,
+            "-2": "oS+xlkqgv2SFeaiIFJnWFrqt6cC/wsAO2w0wvz0aXtA=",
+            "-3": "Bdb60oZNubZ4LQ7QGK+eIkMmC0ahHy079PzX5NwiH24=",
+            "1": 2,
+            "3": -7
+          }
+        },
+        "flags": {
+          "AT": true,
+          "ED": false,
+          "UP": true,
+          "UV": false,
+          "value": 65
+        },
+        "rpIdHash": "xGzvgq0bVGR3WR0Aiwh1nsPm0uy085R0v+ppaZJdA7c=",
+        "signatureCounter": 2
+      },
+      "fmt": "packed"
+    },
+    "clientData": {
+      "challenge": "IVh8qd6NzOFMmnnjWgGBZhjssJiUVlhu+mHsdRHcoWM=",
+      "crossOrigin": false,
+      "origin": "https://demo.yubico.com",
+      "type": "webauthn.create"
+    },
+    "device": {
+      "name": "Security Key by Yubico Series",
+      "type": "skyseries"
+    },
+    "parsed_x5c": {
+      "extensions": {
+        "1.3.6.1.4.1.41482.2": {
+          "data": {
+            "decoded": "1.3.6.1.4.1.41482.1.1",
+            "description": "YubiKey U2F",
+            "hex": "312e332e362e312e342e312e34313438322e312e31"
+          },
+          "type": "U2F Device identifier"
+        },
+        "1.3.6.1.4.1.45724.1.1.4": {
+          "data": {
+            "aaguid": "b92c3f9ac0144056887f140a2501163b",
+            "hex": "0410b92c3f9ac0144056887f140a2501163b"
+          },
+          "type": "id-fido-gen-ce-aaguid"
+        },
+        "1.3.6.1.4.1.45724.2.1.1": {
+          "data": {
+            "hex": "03020520",
+            "transports": [
+              "USB"
+            ]
+          },
+          "type": "fidoU2FTransports"
+        },
+        "2.5.29.19": {
+          "data": {
+            "CA": false
+          },
+          "type": "Basic constraints"
+        }
+      },
+      "issuer": "CN = Yubico U2F Root CA Serial 457200631",
+      "not_valid_after": "2050-09-04T00:00:00",
+      "not_valid_before": "2014-08-01T00:00:00",
+      "public_key": {
+        "data": {
+          "curve_name": "secp256r1",
+          "key_size": 256,
+          "pub": "045cb70ea66c13f2bfe0ff9384d0b3432048cda0b6fb87501b729be6cd4d6806ade0526676adfdd46f2e51644f1277654f2af0d08f96cc553bb5f14515bfbe9dd0"
+        },
+        "type": "ECC"
+      },
+      "serial_number": 1073904040,
+      "signature": "b287e44606a8debcc01332f5c6ca90ce3130260b8f7746205f1ad48eb783a31bcb91068594cad7b5a4dba638137e89d33e2a7fb6b1703572fb08282c9c6c141ad8ef41d7c4aee18c54f58bfdf1c7ffdf7a9210ca3abf0a56f927e355bca472b37b33a6ed5afbb1c2c610308e5ab3ac26bb3d43ceff133ee017b580469d35e69750f24842e66017790d736e04ebbfefe4b6244d1c711db30ef93094ea95e57d9f4d631d549ef3ef09ee5b19c417c24ecd3fb98b50fc2ab57dda67dc9d267a41ad7666b5095af8225404d2992c7bdaa73c4ed60ac6764e0c6395d8338504ff95cd21d4aa00334982aeb87326c6be1332f13b12aea4dfe8e9d6f8ddb8380395f988",
+      "signature_algorithm": {
+        "description": "sha256WithRSAEncryption",
+        "oid": "1.2.840.113549.1.1.11"
+      },
+      "subject": {
+        "rfc4514": "CN=Yubico U2F EE Serial 1073904040,OU=Authenticator Attestation,O=Yubico AB,C=SE"
+      },
+      "version": {
+        "hex": 2,
+        "v": 3
+      }
+    },
+    "pem": "-----BEGIN CERTIFICATE-----\nMIICvjCCAaagAwIBAgIEQAJ5qDANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNZ\ndWJpY28gVTJGIFJvb3QgQ0EgU2VyaWFsIDQ1NzIwMDYzMTAgFw0xNDA4MDEwMDAw\nMDBaGA8yMDUwMDkwNDAwMDAwMFowbzELMAkGA1UEBhMCU0UxEjAQBgNVBAoMCVl1\nYmljbyBBQjEiMCAGA1UECwwZQXV0aGVudGljYXRvciBBdHRlc3RhdGlvbjEoMCYG\nA1UEAwwfWXViaWNvIFUyRiBFRSBTZXJpYWwgMTA3MzkwNDA0MDBZMBMGByqGSM49\nAgEGCCqGSM49AwEHA0IABFy3DqZsE/K/4P+ThNCzQyBIzaC2+4dQG3Kb5s1NaAat\n4FJmdq391G8uUWRPEndlTyrw0I+WzFU7tfFFFb++ndCjbDBqMCIGCSsGAQQBgsQK\nAgQVMS4zLjYuMS40LjEuNDE0ODIuMS4xMBMGCysGAQQBguUcAgEBBAQDAgUgMCEG\nCysGAQQBguUcAQEEBBIEELksP5rAFEBWiH8UCiUBFjswDAYDVR0TAQH/BAIwADAN\nBgkqhkiG9w0BAQsFAAOCAQEAsofkRgao3rzAEzL1xsqQzjEwJguPd0YgXxrUjreD\noxvLkQaFlMrXtaTbpjgTfonTPip/trFwNXL7CCgsnGwUGtjvQdfEruGMVPWL/fHH\n/996khDKOr8KVvkn41W8pHKzezOm7Vr7scLGEDCOWrOsJrs9Q87/Ez7gF7WARp01\n5pdQ8khC5mAXeQ1zbgTrv+/ktiRNHHEdsw75MJTqleV9n01jHVSe8+8J7lsZxBfC\nTs0/uYtQ/Cq1fdpn3J0mekGtdma1CVr4IlQE0pkse9qnPE7WCsZ2TgxjldgzhQT/\nlc0h1KoAM0mCrrhzJsa+EzLxOxKupN/o6db43bg4A5X5iA==\n-----END CERTIFICATE-----"
+  },
+  "status": "success"
+}
+fido2-webauthn-client: http_request: https://demo.yubico.com/api/v1/simple/webauthn/authenticate-begin
+{
+  "userVerification": "discouraged"
+}
+fido2-webauthn-client: http_response_json: https://demo.yubico.com/api/v1/simple/webauthn/authenticate-begin
+{
+  "data": {
+    "publicKey": {
+      "allowCredentials": [
+        {
+          "id": "RnENl5PzBX4+iNefWK8hjhf7ybjgG+HiKhn2ro0BfY7K1+7wROVnczWgmN9YLUSyQEKzXj9AJMPywEHSbVsaUg==",
+          "type": "public-key"
+        }
+      ],
+      "challenge": "gAnPhydF0mTuKB4gL8s7MpB9aeI6A9BZFhbaWC23NjM=",
+      "rpId": "demo.yubico.com",
+      "timeout": 90000,
+      "userVerification": "discouraged"
+    },
+    "requestId": "c67e462d-f869-4e84-9db7-1971de5e44b2",
+    "username": "Yubico demo user"
+  },
+  "status": "success"
+}
+fido_tx: d=0x60c000001180, cmd=0x10, buf=0x60d00001a860, count=142
+0000: 02 a3 01 6f 64 65 6d 6f 2e 79 75 62 69 63 6f 2e
+0016: 63 6f 6d 02 58 20 27 16 c8 4d 1a 99 9e 93 e2 66
+0032: f5 f0 7a 01 f3 53 e9 9d 3e 39 a9 b3 13 52 34 58
+0048: f4 3d a0 40 a2 3e 03 81 a2 62 69 64 58 40 46 71
+0064: 0d 97 93 f3 05 7e 3e 88 d7 9f 58 af 21 8e 17 fb
+0080: c9 b8 e0 1b e1 e2 2a 19 f6 ae 8d 01 7d 8e ca d7
+0096: ee f0 44 e5 67 73 35 a0 98 df 58 2d 44 b2 40 42
+0112: b3 5e 3f 40 24 c3 f2 c0 41 d2 6d 5b 1a 52 64 74
+0128: 79 70 65 6a 70 75 62 6c 69 63 2d 6b 65 79
+fido_rx: d=0x60c000001180, cmd=0x10, buf=0x10d1ad020, count=2048, ms=-1
+rx_preamble: initiation frame at 0x10ccb3920
+0000: 01 42 00 03 90 00 cb 00 a3 01 a2 62 69 64 58 40
+0016: 46 71 0d 97 93 f3 05 7e 3e 88 d7 9f 58 af 21 8e
+0032: 17 fb c9 b8 e0 1b e1 e2 2a 19 f6 ae 8d 01 7d 8e
+0048: ca d7 ee f0 44 e5 67 73 35 a0 98 df 58 2d 44 b2
+rx: payload_len=203
+rx: continuation frame at 0x10ccb3920
+0000: 01 42 00 03 00 40 42 b3 5e 3f 40 24 c3 f2 c0 41
+0016: d2 6d 5b 1a 52 64 74 79 70 65 6a 70 75 62 6c 69
+0032: 63 2d 6b 65 79 02 58 25 c4 6c ef 82 ad 1b 54 64
+0048: 77 59 1d 00 8b 08 75 9e c3 e6 d2 ec b4 f3 94 74
+rx: continuation frame at 0x10ccb3920
+0000: 01 42 00 03 01 bf ea 69 69 92 5d 03 b7 01 00 00
+0016: 00 06 03 58 47 30 45 02 20 3e 30 85 85 5f 93 01
+0032: 5f 4e fa 69 75 4a bd 47 2f da 4e e8 db f4 66 45
+0048: 6a c9 50 25 4c e4 43 79 a9 02 21 00 ba e1 7f d7
+rx: continuation frame at 0x10ccb3920
+0000: 01 42 00 03 02 20 8a 0c f7 1e 89 04 fe dc 0c fc
+0016: 9d d6 6f 25 3f ea 8f dd 60 82 a4 f4 50 04 a6 2d
+0032: 48 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0048: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+fido_rx: buf=0x10d1ad020, len=203
+0000: 00 a3 01 a2 62 69 64 58 40 46 71 0d 97 93 f3 05
+0016: 7e 3e 88 d7 9f 58 af 21 8e 17 fb c9 b8 e0 1b e1
+0032: e2 2a 19 f6 ae 8d 01 7d 8e ca d7 ee f0 44 e5 67
+0048: 73 35 a0 98 df 58 2d 44 b2 40 42 b3 5e 3f 40 24
+0064: c3 f2 c0 41 d2 6d 5b 1a 52 64 74 79 70 65 6a 70
+0080: 75 62 6c 69 63 2d 6b 65 79 02 58 25 c4 6c ef 82
+0096: ad 1b 54 64 77 59 1d 00 8b 08 75 9e c3 e6 d2 ec
+0112: b4 f3 94 74 bf ea 69 69 92 5d 03 b7 01 00 00 00
+0128: 06 03 58 47 30 45 02 20 3e 30 85 85 5f 93 01 5f
+0144: 4e fa 69 75 4a bd 47 2f da 4e e8 db f4 66 45 6a
+0160: c9 50 25 4c e4 43 79 a9 02 21 00 ba e1 7f d7 20
+0176: 8a 0c f7 1e 89 04 fe dc 0c fc 9d d6 6f 25 3f ea
+0192: 8f dd 60 82 a4 f4 50 04 a6 2d 48
+adjust_assert_count: cbor_type
+adjust_assert_count: cbor_type
+adjust_assert_count: cbor_type
+cbor_decode_assert_authdata: buf=0x6040000bcb50, len=37
+fido2-webauthn-client: http_request: https://demo.yubico.com/api/v1/simple/webauthn/authenticate-finish
+{
+  "requestId": "c67e462d-f869-4e84-9db7-1971de5e44b2",
+  "assertion": {
+    "credentialId": "RnENl5PzBX4+iNefWK8hjhf7ybjgG+HiKhn2ro0BfY7K1+7wROVnczWgmN9YLUSyQEKzXj9AJMPywEHSbVsaUg==",
+    "authenticatorData": "xGzvgq0bVGR3WR0Aiwh1nsPm0uy085R0v+ppaZJdA7cBAAAABg==",
+    "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiZ0FuUGh5ZEYwbVR1S0I0Z0w4czdNcEI5YWVJNkE5QlpGaGJhV0MyM05qTT0iLCJvcmlnaW4iOiJodHRwczovL2RlbW8ueXViaWNvLmNvbSIsImNyb3NzT3JpZ2luIjpmYWxzZX0=",
+    "signature": "MEUCID4whYVfkwFfTvppdUq9Ry/aTujb9GZFaslQJUzkQ3mpAiEAuuF/1yCKDPceiQT+3Az8ndZvJT/qj91ggqT0UASmLUg="
+  }
+}
+fido2-webauthn-client: http_response_json: https://demo.yubico.com/api/v1/simple/webauthn/authenticate-finish
+{
+  "data": {
+    "authenticatorData": {
+      "authData": {
+        "credentialData": {
+          "aaguid": "uSw/msAUQFaIfxQKJQEWOw==",
+          "credentialId": "RnENl5PzBX4+iNefWK8hjhf7ybjgG+HiKhn2ro0BfY7K1+7wROVnczWgmN9YLUSyQEKzXj9AJMPywEHSbVsaUg==",
+          "publicKey": {
+            "-1": 1,
+            "-2": "oS+xlkqgv2SFeaiIFJnWFrqt6cC/wsAO2w0wvz0aXtA=",
+            "-3": "Bdb60oZNubZ4LQ7QGK+eIkMmC0ahHy079PzX5NwiH24=",
+            "1": 2,
+            "3": -7
+          }
+        },
+        "flags": {
+          "AT": false,
+          "ED": false,
+          "UP": true,
+          "UV": false,
+          "value": 1
+        },
+        "rpIdHash": "xGzvgq0bVGR3WR0Aiwh1nsPm0uy085R0v+ppaZJdA7c=",
+        "signatureCounter": 6
+      },
+      "clientData": {
+        "challenge": "gAnPhydF0mTuKB4gL8s7MpB9aeI6A9BZFhbaWC23NjM=",
+        "crossOrigin": false,
+        "origin": "https://demo.yubico.com",
+        "type": "webauthn.get"
+      }
+    },
+    "username": "Yubico demo user"
+  },
+  "status": "success"
+}
