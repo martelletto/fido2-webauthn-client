@@ -259,7 +259,8 @@ http_response_json(struct http_post *h)
 
 	warnx("%s: %s", __func__, h->url);
 
-	if ((blob = json_loads(h->response, 0, &error)) == NULL) {
+	if ((blob = json_loads(h->response, JSON_DECODE_INT_AS_REAL,
+	    &error)) == NULL) {
 		warnx("%s: json_loads", __func__);
 		return NULL;
 	}
